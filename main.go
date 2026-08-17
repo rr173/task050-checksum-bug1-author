@@ -68,7 +68,8 @@ type blobMeta struct {
 // exists; callers should have already validated presence.
 func (s *server) metaFor(name string, content []byte) blobMeta {
 	md5, _ := manifest.Hash(manifest.MD5, content)
-	return blobMeta{Name: name, Size: len(content), MD5: md5}
+	sha, _ := manifest.Hash(manifest.SHA256, content)
+	return blobMeta{Name: name, Size: len(content), MD5: md5, SHA256: sha}
 }
 
 func (s *server) routes() http.Handler {
